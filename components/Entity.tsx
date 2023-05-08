@@ -1,9 +1,14 @@
+import { useContext } from "react";
+
 import Link from "next/link";
+
 import { styled } from "@mui/joy/styles";
+
+import Context from "../context";
+import { getEntityUrl } from "../src/urls";
+import { getProxy } from "../src/util";
 import type { IEntityComponent } from "../types";
 import Icons from "../types/icons";
-import { getProxy } from "../src/util";
-import { getEntityUrl } from "../src/urls";
 
 interface IconProps extends IEntityComponent {
   size?: number;
@@ -55,8 +60,9 @@ export function EntityLink({
   icon = false,
   iconOnly = false,
 }: CaptionProps) {
+  const { urlPrefix } = useContext(Context);
   return (
-    <Link href={getEntityUrl(entity)}>
+    <Link href={getEntityUrl(entity, urlPrefix)}>
       <EntityCaption entity={entity} icon={icon} iconOnly={iconOnly} />
     </Link>
   );

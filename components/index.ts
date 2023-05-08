@@ -4,3 +4,5 @@ import CountryFlag from "./common/CountryFlag";
 import DateDisplay from "./common/Date";
 
 export { Catalog, Dataset, CountryFlag, DateDisplay };
+
+export * from "./Entity";

@@ -1,7 +1,8 @@
 import { ParsedUrlQuery } from "querystring";
 import slugify from "slugify";
-import { getProxy } from "./util";
+
 import type { TEntity } from "../types";
+import { getProxy } from "./util";
 
 export { slugify };
 
@@ -18,7 +19,7 @@ export function getEntityUrlParams(entity: TEntity): IEntityUrlParams {
   };
 }
 
-export function getEntityUrl(entity: TEntity): string {
+export function getEntityUrl(entity: TEntity, prefix?: string): string {
   const { schema, slug } = getEntityUrlParams(entity);
-  return `/${schema.toLowerCase()}/${slug.join("/")}`;
+  return `${prefix || "/"}${schema.toLowerCase()}/${slug.join("/")}`;
 }
