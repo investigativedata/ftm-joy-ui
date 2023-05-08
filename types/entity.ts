@@ -230,6 +230,6 @@ export class Entity {
 
 export type TEntity = Entity | IEntityDatum;
 
-export interface IEntityComponentProps {
+export interface IEntityComponent {
   entity: TEntity;
 }

@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from "querystring";
 import slugify from "slugify";
 import { getProxy } from "./util";
-import type { TEntity } from "./types";
+import type { TEntity } from "../types";
 
 export { slugify };
 
@@ -11,10 +11,10 @@ export interface IEntityUrlParams extends ParsedUrlQuery {
 }
 
 export function getEntityUrlParams(entity: TEntity): IEntityUrlParams {
-  entity = getProxy(entity);
+  const proxy = getProxy(entity);
   return {
-    schema: slugify(entity.schema.name).toLowerCase(),
-    slug: [entity.id, slugify(entity.getCaption()).slice(0, 100)],
+    schema: slugify(proxy.schema.name).toLowerCase(),
+    slug: [proxy.id, slugify(proxy.getCaption()).slice(0, 100)],
   };
 }
 

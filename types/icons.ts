@@ -1,4 +1,4 @@
-import icons from "./generated/icons.json";
+import icons from "../src/icons.json";
 import { Schema } from "./schema";
 
 interface IIconStorage {
@@ -19,4 +19,4 @@ const IconRegistry = {
   },
 };
 
-export default IconRegistry
+export default IconRegistry;

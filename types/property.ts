@@ -1,4 +1,6 @@
-import type { PropertyType, TValue, TSchema, TProperty } from "./types";
+import type { Value } from "./entity";
+import type { Schema } from "./schema";
+import type { PropertyType } from "./propertyType";
 
 export interface IPropertyDatum {
   name: string;
@@ -18,7 +20,7 @@ export interface IPropertyDatum {
  * labels and other useful criteria.
  */
 export class Property {
-  public readonly schema: TSchema;
+  public readonly schema: Schema;
   public readonly name: string;
   public readonly qname: string;
   public readonly label: string;
@@ -30,7 +32,7 @@ export class Property {
   private readonly range: string | null;
   private readonly reverse: string | null;
 
-  constructor(schema: TSchema, property: IPropertyDatum) {
+  constructor(schema: Schema, property: IPropertyDatum) {
     this.schema = schema;
     this.name = property.name;
     this.qname = property.qname;
@@ -44,7 +46,7 @@ export class Property {
     this.type = schema.model.getType(property.type);
   }
 
-  getRange(): TSchema | undefined {
+  getRange(): Schema | undefined {
     if (!this.range) {
       return undefined;
     }
@@ -73,10 +75,10 @@ export class Property {
   }
 }
 
-export function castPropertyValue(
+export const castPropertyValue = (
   prop: Property,
-  value: TValue
-): TValue | Date | number {
+  value: Value
+): Value | Date | number => {
   if (typeof value !== "string") return value;
   if (prop.type.name == "number") return parseFloat(value);
   if (prop.type.name == "date") {
@@ -84,11 +86,11 @@ export function castPropertyValue(
     return new Date(value);
   }
   return value;
-}
+};
 
 export const getPrimitiveValue = (
-  prop: TProperty,
-  value: TValue | null
+  prop: Property,
+  value: Value | null
 ): number | string => {
   if (!value) return "";
   const casted = castPropertyValue(prop, value);
