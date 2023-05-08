@@ -16,9 +16,10 @@
     "url": "https://github.com/investigativedata/ftm-joy-ui/issues"
   },
   "homepage": "https://github.com/investigativedata/ftm-joy-ui#readme",
-  "devDependencies": {
+  "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
-    "@mui/joy": "^5.0.0-alpha.78"
+    "@mui/joy": "^5.0.0-alpha.78",
+    "semantic-ui-flag": "^2.5.0"
   }
 }
