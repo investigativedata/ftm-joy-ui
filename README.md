@@ -10,8 +10,16 @@ Projects using these components should simply use this repo as a [git submodule]
 
 Within your project, add the submodule, as a convention to the path `lib/ftm`:
 
-    git submodule add git@github.com:investigativedata/ftm-joy-ui.git lib/ftm
+    git submodule add https://github.com/investigativedata/ftm-joy-ui.git lib/ftm
 
 Updating from remote:
 
     git submodule update --remote lib/ftm
+
+
+## supported by
+[Media Tech Lab Bayern batch #3](https://github.com/media-tech-lab)
+
+<a href="https://www.media-lab.de/en/programs/media-tech-lab">
+    <img src="https://raw.githubusercontent.com/media-tech-lab/.github/main/assets/mtl-powered-by.png" width="240" title="Media Tech Lab powered by logo">
+</a>
