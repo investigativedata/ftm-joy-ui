@@ -12,9 +12,9 @@ interface ISchemataStats {
 }
 
 export interface IThingsStats {
-  readonly total: number
-  readonly countries: ICountryStats[]
-  readonly schemata: ISchemataStats[]
+  readonly total: number;
+  readonly countries: ICountryStats[];
+  readonly schemata: ISchemataStats[];
 }
 
 interface IResource {
@@ -30,7 +30,7 @@ interface IResource {
   readonly title: string;
 }
 
-interface IDatasetPublisher {
+export interface IDatasetPublisher {
   readonly name: string;
   readonly url?: string;
   readonly description?: string;
@@ -54,6 +54,8 @@ export interface INKDataset extends INKDatasetBase {
   readonly children: Array<string>;
   readonly publisher?: IDatasetPublisher;
   readonly resources: Array<IResource>;
+  readonly url?: string;
+  readonly entities_url?: string;
   readonly things?: IThingsStats;
 }
 

@@ -1,16 +1,22 @@
 "use client";
 
-import type { INKDataset, IThingsStats } from "~/lib/ftm/types";
 import { usePathname } from "next/navigation";
 
-import Link from "@mui/joy/Link";
+import LaunchIcon from "@mui/icons-material/Launch";
+import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
-import IconButton from "@mui/joy/IconButton";
+import Link from "@mui/joy/Link";
+import Table from "@mui/joy/Table";
 import Typography from "@mui/joy/Typography";
-import LaunchIcon from "@mui/icons-material/Launch";
-import SearchIcon from "@mui/icons-material/Search";
+
+import { CountryFlag } from "~/lib/ftm/components";
+import type {
+  IDatasetPublisher,
+  INKDataset,
+  IThingsStats,
+} from "~/lib/ftm/types";
 
 import DateDisplay from "./common/Date";
 
@@ -29,12 +35,12 @@ const ThingsStats = ({ things }: { things: IThingsStats }) => (
   </>
 );
 
-type ComponentProps = {
+type DatasetProps = {
   dataset: INKDataset;
   detail?: boolean;
 };
 
-export default function Dataset({ dataset, detail = false }: ComponentProps) {
+export default function Dataset({ dataset, detail = false }: DatasetProps) {
   const basePath = usePathname();
   return (
     <Card variant="outlined" sx={{ width: "100%", marginBottom: "1rem" }}>
@@ -46,6 +52,8 @@ export default function Dataset({ dataset, detail = false }: ComponentProps) {
       </Typography>
       {detail ? (
         <Button
+          href={dataset.entities_url}
+          component="a"
           aria-label={`api url for ${dataset.title}`}
           variant="plain"
           color="neutral"
@@ -81,6 +89,88 @@ export default function Dataset({ dataset, detail = false }: ComponentProps) {
             sx={{ ml: "auto", fontWeight: 600 }}
           >
             Explore
+          </Button>
+        ) : null}
+      </Box>
+    </Card>
+  );
+}
+
+const TRow = ({ label, value }: { label: string; value: any }) =>
+  !!value ? (
+    <tr>
+      <th style={{ backgroundColor: "inherit" }}>{label}</th>
+      <td>{value}</td>
+    </tr>
+  ) : null;
+
+type MetaComponentProps = {
+  dataset: INKDataset;
+  full?: boolean;
+};
+
+export function DatasetMeta({ dataset, full = false }: MetaComponentProps) {
+  return (
+    <Card variant="soft">
+      {full ? (
+        <>
+          <code>{dataset.name}</code>
+          <Typography color="primary" level="h2" fontSize="md" sx={{ mb: 0.5 }}>
+            {dataset.title}
+          </Typography>
+          <Typography color="neutral" level="body2">
+            {dataset.summary}
+          </Typography>
+        </>
+      ) : null}
+      <Table aria-label="dataset metadata">
+        <tbody>
+          <TRow
+            label="Last updated"
+            value={<DateDisplay value={dataset.updated_at} full />}
+          />
+          <TRow label="Frequency" value={dataset.frequency} />
+          <TRow label="Category" value={dataset.category} />
+          <TRow label="Publisher" value={dataset.publisher?.name} />
+        </tbody>
+      </Table>
+    </Card>
+  );
+}
+
+export function PublisherMeta({ publisher }: { publisher: IDatasetPublisher }) {
+  return (
+    <Card variant="soft">
+      <Typography level="h3" fontSize="sm" sx={{ mb: 0.5 }}>
+        Publisher
+      </Typography>
+      <CountryFlag iso={publisher.country} />
+      {publisher.country_label}
+      <Typography color="primary" level="h2" fontSize="md" sx={{ mb: 0.5 }}>
+        {publisher.name}
+      </Typography>
+      <Typography color="neutral" level="body2">
+        {publisher.description}
+      </Typography>
+      <Box sx={{ display: "flex" }}>
+        <div>
+          <Typography level="body3">Official</Typography>
+          <Typography fontSize="lg" fontWeight="lg">
+            {publisher.official ? "yes" : "no"}
+          </Typography>
+        </div>
+        {publisher.url ? (
+          <Button
+            component="a"
+            href={publisher.url}
+            variant="outlined"
+            size="sm"
+            color="primary"
+            aria-label="Publisher website"
+            sx={{ ml: "auto", fontWeight: 500 }}
+            endDecorator={<LaunchIcon />}
+          >
+            Website
           </Button>
         ) : null}
       </Box>

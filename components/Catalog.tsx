@@ -1,10 +1,9 @@
 import type { INKCatalog } from "../types";
-
 import Dataset from "./Dataset";
 
-type ComponentProps = { catalog: INKCatalog; detail?: boolean };
+type CatalogProps = { catalog: INKCatalog; detail?: boolean };
 
-export default function Catalog({ catalog, detail = false }: ComponentProps) {
+export default function Catalog({ catalog, detail = false }: CatalogProps) {
   return (
     <section>
       {catalog.datasets.map((d) => (
