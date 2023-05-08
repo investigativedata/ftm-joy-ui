@@ -12,6 +12,8 @@ import Typography from "@mui/joy/Typography";
 import LaunchIcon from "@mui/icons-material/Launch";
 import SearchIcon from "@mui/icons-material/Search";
 
+import DateDisplay from "./common/Date";
+
 const ThingsStats = ({ things }: { things: IThingsStats }) => (
   <>
     <div>
@@ -36,7 +38,9 @@ export default function Dataset({ dataset, detail = false }: ComponentProps) {
   const basePath = usePathname();
   return (
     <Card variant="outlined" sx={{ width: "100%", marginBottom: "1rem" }}>
-      <Typography level="body2">Last updated: {dataset.updated_at}</Typography>
+      <Typography level="body2">
+        Last updated: <DateDisplay value={dataset.updated_at} full />
+      </Typography>
       <Typography level="h2" fontSize="xl" sx={{ mb: 0.5 }}>
         {dataset.title}
       </Typography>
