@@ -1,4 +1,4 @@
-import type { INKCatalog } from "~/lib/ftm/types";
+import type { INKCatalog } from "../types";
 
 import Dataset from "./Dataset";
 
