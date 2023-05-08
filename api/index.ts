@@ -1,58 +1,67 @@
 import queryString from "query-string";
-import type { INKDataset, INKCatalog, IEntityDatum } from "../types";
-import type { IApiQuery, IEntitiesResult, IAggregationResult } from "./types";
-import { API_ENDPOINT, BUILD_API_KEY } from "config";
 
-export async function getCatalog(): Promise<INKCatalog> {
-  return await api("catalog");
-}
+import type { IEntityDatum, INKCatalog, INKDataset } from "../types";
+import type { IAggregationResult, IApiQuery, IEntitiesResult } from "./types";
 
-export async function getDataset(dataset: string): Promise<INKDataset> {
-  return await api(dataset);
-}
+export default class Api {
+  private endpoint: string;
+  private api_key?: string;
 
-export async function getEntity(
-  dataset: string,
-  id: string
-): Promise<IEntityDatum> {
-  return await api(`${dataset}/entities/${id}`);
-}
-
-export async function getEntities(
-  dataset: string,
-  query: IApiQuery = {}
-): Promise<IEntitiesResult> {
-  return await api(`${dataset}/entities`, query);
-}
-
-export async function searchEntities(
-  dataset: string,
-  query: IApiQuery = {}
-): Promise<IEntitiesResult> {
-  return await api(`${dataset}/search`, query);
-}
-
-export async function getAggregations(
-  dataset: string,
-  query: IApiQuery = {}
-): Promise<IAggregationResult> {
-  return await api(`${dataset}/aggregate`, query);
-}
-
-async function api(path: string, query: IApiQuery = {}): Promise<any> {
-  query.api_key = BUILD_API_KEY; // this var is only accessible on server
-  const url = `${API_ENDPOINT}/${path}?${queryString.stringify(query, {
-    skipNull: true,
-    skipEmptyString: true,
-  })}`;
-  const res = await fetch(url);
-  if (res.ok) {
-    const data = await res.json();
-    return data;
+  constructor(endpoint: string, api_key?: string) {
+    this.endpoint = endpoint;
+    this.api_key = api_key;
   }
-  if (res.status >= 400 && res.status < 600) {
-    const { error } = await res.json();
-    console.log(error);
-    throw { code: res.status, error };
+
+  async getCatalog(): Promise<INKCatalog> {
+    return await this.api("catalog");
+  }
+
+  async getDataset(dataset: string): Promise<INKDataset> {
+    return await this.api(dataset);
+  }
+
+  async getEntity(dataset: string, id: string): Promise<IEntityDatum> {
+    return await this.api(`${dataset}/entities/${id}`);
+  }
+
+  async getEntities(
+    dataset: string,
+    query: IApiQuery = {}
+  ): Promise<IEntitiesResult> {
+    console.log("API", dataset, query);
+    return await this.api(`${dataset}/entities`, query);
+  }
+
+  async searchEntities(
+    dataset: string,
+    query: IApiQuery = {}
+  ): Promise<IEntitiesResult> {
+    return await this.api(`${dataset}/search`, query);
+  }
+
+  async getAggregations(
+    dataset: string,
+    query: IApiQuery = {}
+  ): Promise<IAggregationResult> {
+    return await this.api(`${dataset}/aggregate`, query);
+  }
+
+  async api(path: string, query: IApiQuery = {}): Promise<any> {
+    query.api_key = this.api_key; // this var is only accessible on server
+    const url = `${this.endpoint}/${path}?${queryString.stringify(query, {
+      skipNull: true,
+      skipEmptyString: true,
+    })}`;
+    console.log(url);
+    const res = await fetch(url);
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+    if (res.status >= 400 && res.status < 600) {
+      const error = await res.text();
+      console.log(res.status, error);
+      throw { code: res.status, error };
+    }
   }
 }
