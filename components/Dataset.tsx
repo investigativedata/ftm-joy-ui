@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "@mui/joy/Link";
 import type { INKDataset, IThingsStats } from "~/lib/ftm/types";
+import { usePathname } from "next/navigation";
 
+import Link from "@mui/joy/Link";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
@@ -32,6 +33,7 @@ type ComponentProps = {
 };
 
 export default function Dataset({ dataset, detail = false }: ComponentProps) {
+  const basePath = usePathname();
   return (
     <Card variant="outlined" sx={{ width: "100%", marginBottom: "1rem" }}>
       <Typography level="body2">Last updated: {dataset.updated_at}</Typography>
@@ -65,6 +67,8 @@ export default function Dataset({ dataset, detail = false }: ComponentProps) {
         ) : null}
         {detail ? (
           <Button
+            href={basePath + "/" + dataset.name}
+            component="a"
             startDecorator={<SearchIcon />}
             variant="solid"
             size="sm"
