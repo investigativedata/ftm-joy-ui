@@ -8,6 +8,7 @@ import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
 import Link from "@mui/joy/Link";
+import Stack from "@mui/joy/Stack";
 import Table from "@mui/joy/Table";
 import Typography from "@mui/joy/Typography";
 
@@ -129,8 +130,8 @@ export function DatasetMeta({ dataset, full = false }: MetaComponentProps) {
             label="Last updated"
             value={<DateDisplay value={dataset.updated_at} full />}
           />
-          <TRow label="Frequency" value={dataset.frequency} />
-          <TRow label="Category" value={dataset.category} />
+          <TRow label="Frequency" value={dataset.frequency || "unknown"} />
+          <TRow label="Category" value={dataset.category || "Other"} />
           <TRow label="Publisher" value={dataset.publisher?.name} />
         </tbody>
       </Table>
@@ -154,10 +155,10 @@ export function PublisherMeta({ publisher }: { publisher: IDatasetPublisher }) {
       </Typography>
       <Box sx={{ display: "flex" }}>
         <div>
-          <Typography level="body3">Official</Typography>
-          <Typography fontSize="lg" fontWeight="lg">
-            {publisher.official ? "yes" : "no"}
+          <Typography level="body3" fontWeight="lg">
+            Official
           </Typography>
+          <Typography>{publisher.official ? "yes" : "no"}</Typography>
         </div>
         {publisher.url ? (
           <Button
@@ -175,5 +176,28 @@ export function PublisherMeta({ publisher }: { publisher: IDatasetPublisher }) {
         ) : null}
       </Box>
     </Card>
+  );
+}
+
+export function DatasetHeader({ dataset }: DatasetProps) {
+  return (
+    <Stack>
+      <Typography level="h2" color="primary" sx={{ pb: 2 }}>
+        {dataset.title}
+      </Typography>
+      <Typography>{dataset.summary}</Typography>
+      <Button
+        href={dataset.entities_url}
+        component="a"
+        aria-label={`api url for ${dataset.title}`}
+        variant="plain"
+        color="neutral"
+        size="sm"
+        sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
+        endDecorator={<LaunchIcon />}
+      >
+        Api
+      </Button>
+    </Stack>
   );
 }
