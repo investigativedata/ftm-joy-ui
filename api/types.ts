@@ -12,6 +12,7 @@ export interface IApiQuery extends IUrlQuery {
   readonly nested?: boolean;
   readonly dehydrate?: boolean;
   readonly dehydrate_nested?: boolean;
+  readonly reverse?: string;
   readonly [key: string]: any;
 }
 
