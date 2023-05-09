@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import Link from "next/link";
 
+import countryNames from "../data/countryNames.json";
 import { getProxy } from "../src/util";
 import type { IEntityComponent, TProperty } from "../types";
 import { EntityLink } from "./Entity";
@@ -75,11 +76,12 @@ const renderCountry = ({
   value: string;
   ellipsis: number;
 }) => {
+  const label = countryNames["en"][value] || value;
   return ellipsis > 0 ? (
     <CountryFlag iso={value.toLowerCase()} />
   ) : (
     <span>
-      <CountryFlag iso={value.toLowerCase()} /> {value}
+      <CountryFlag iso={value.toLowerCase()} /> {label}
     </span>
   );
 };

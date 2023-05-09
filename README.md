@@ -17,6 +17,16 @@ Updating from remote:
     git submodule update --remote lib/ftm
 
 
+## country names
+
+are included and loaded from a json file in `data/countryNames.json`
+
+to update it, run:
+
+    pip install followthemoney
+    python ./generate_countrynames.py > data/countryNames.json
+
+
 ## supported by
 [Media Tech Lab Bayern batch #3](https://github.com/media-tech-lab)
 
