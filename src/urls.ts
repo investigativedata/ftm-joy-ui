@@ -15,5 +15,5 @@ export function getEntityUrlParams(entity: TEntity): IEntityUrlParams {
 
 export function getEntityUrl(entity: TEntity, prefix?: string): string {
   const { slug } = getEntityUrlParams(entity);
-  return `${prefix || "/"}/${slug.join("/")}`;
+  return `${prefix || ""}/${slug.join("/")}`;
 }
