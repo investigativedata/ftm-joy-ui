@@ -79,7 +79,7 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
         ) : null}
         {detail ? (
           <Button
-            href={basePath + "/" + dataset.name}
+            href={`${basePath}/${dataset.name}`}
             component="a"
             startDecorator={<SearchIcon />}
             variant="solid"
