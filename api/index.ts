@@ -21,7 +21,7 @@ export default class Api {
   }
 
   async getEntity(dataset: string, id: string): Promise<IEntityDatum> {
-    return await this.api(`${dataset}/entities/${id}`);
+    return await this.api(`${dataset}/entities/${id}`, { nested: true });
   }
 
   async getEntities(
