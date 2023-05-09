@@ -1,7 +1,5 @@
 import { useContext } from "react";
 
-import Link from "next/link";
-
 import { styled } from "@mui/joy/styles";
 
 import Context from "../context";
@@ -9,6 +7,7 @@ import { getEntityUrl } from "../src/urls";
 import { getProxy } from "../src/util";
 import type { IEntityComponent } from "../types";
 import Icons from "../types/icons";
+import Link from "./common/Link";
 
 interface CaptionProps extends IEntityComponent {
   readonly icon?: boolean;
@@ -57,7 +56,7 @@ export function EntityCaption({
   entity = getProxy(entity);
   return (
     <>
-      {icon ? <SchemaIcon entity={entity} /> : null}
+      {icon ? <SchemaIcon entity={entity} /> : null}{" "}
       {!iconOnly ? entity.caption : null}
     </>
   );
