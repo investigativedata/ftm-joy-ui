@@ -1,13 +1,10 @@
-import type { ISchemaDatum } from "./schema";
-import type {
-  PropertyType as TProperty,
-  IPropertyTypeDatum,
-} from "./propertyType";
 import type { IEntityDatum } from "./entity";
-
-import { Schema } from "./schema";
 import { Entity } from "./entity";
+import type { Property as TProperty } from "./property";
+import type { IPropertyTypeDatum } from "./propertyType";
 import { PropertyType } from "./propertyType";
+import type { ISchemaDatum } from "./schema";
+import { Schema } from "./schema";
 
 interface IModelDatum {
   schemata: { [name: string]: ISchemaDatum };

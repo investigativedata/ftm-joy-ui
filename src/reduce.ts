@@ -1,4 +1,4 @@
-import type { Entity, IEntityDatum } from "./types";
+import type { Entity, IEntityDatum } from "../types";
 
 export function reduceEntity(entity: Entity): IEntityDatum {
   const { caption, ...rest } = entity.toJSON();

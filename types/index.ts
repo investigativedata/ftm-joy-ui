@@ -5,6 +5,6 @@ export type {
   IDatasetPublisher,
 } from "./dataset";
 
-export type { TEntity, IEntityDatum, IEntityComponent } from "./entity";
+export type { Entity, TEntity, IEntityDatum, IEntityComponent } from "./entity";
 
 export type { IEntityUrlParams } from "../src/urls";
