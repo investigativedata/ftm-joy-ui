@@ -1,4 +1,4 @@
-import icons from "../src/icons.json";
+import icons from "../data/icons.json";
 import { Schema } from "./schema";
 
 interface IIconStorage {

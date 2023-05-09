@@ -1,7 +1,7 @@
-import type { TEntity, Entity } from "../types/entity";
-import type { Schema } from "../types/schema";
-import defaultModel from "./defaultModel.json";
+import defaultModel from "../data/defaultModel.json";
+import type { Entity, TEntity } from "../types/entity";
 import { Model } from "../types/model";
+import type { Schema } from "../types/schema";
 
 const model = new Model(defaultModel);
 
