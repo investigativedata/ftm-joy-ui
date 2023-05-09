@@ -4,13 +4,15 @@ import { useState } from "react";
 
 import Link from "next/link";
 
-import countryNames from "../data/countryNames.json";
+import countries from "../data/countryNames.json";
 import { getProxy } from "../src/util";
 import type { IEntityComponent, TProperty } from "../types";
 import { EntityLink } from "./Entity";
 import CountryFlag from "./common/CountryFlag";
 
 export const SPACER = " · ";
+
+const countryNames: { [key: string]: string } = countries["en"];
 
 const ellipse = ({
   value,
@@ -76,7 +78,7 @@ const renderCountry = ({
   value: string;
   ellipsis: number;
 }) => {
-  const label = countryNames["en"][value] || value;
+  const label = countryNames[value] || value;
   return ellipsis > 0 ? (
     <CountryFlag iso={value.toLowerCase()} />
   ) : (
