@@ -1,11 +1,13 @@
-import { useState } from "react";
-import Link from "next/link";
-import CountryFlag from "./common/CountryFlag";
 import numeral from "numeral";
-import type { TProperty, IEntityComponent } from "../types";
-import { castPropertyValue } from "../types/property";
+
+import { useState } from "react";
+
+import Link from "next/link";
+
 import { getProxy } from "../src/util";
+import type { IEntityComponent, TProperty } from "../types";
 import { EntityLink } from "./Entity";
+import CountryFlag from "./common/CountryFlag";
 
 export const SPACER = " · ";
 
@@ -21,7 +23,7 @@ const ellipse = ({
 
 const amountFormat = new Intl.NumberFormat(["us", "de"], {
   style: "currency",
-  currency: "€",
+  currency: "EUR",
 });
 
 type AmountProps = {
