@@ -28,7 +28,6 @@ export default class Api {
     dataset: string,
     query: IApiQuery = {}
   ): Promise<IEntitiesResult> {
-    console.log("API", dataset, query);
     return await this.api(`${dataset}/entities`, query);
   }
 
@@ -52,14 +51,13 @@ export default class Api {
       skipNull: true,
       skipEmptyString: true,
     })}`;
-    console.log(url);
     const res = await fetch(url);
     if (res.ok) {
       const data = await res.json();
       return data;
     }
     if (res.status >= 400 && res.status < 600) {
-      const error = await res.text();
+      const error = await res.json();
       console.log(res.status, error);
       throw { code: res.status, error };
     }
