@@ -58,8 +58,8 @@ export default class Api {
     }
     if (res.status >= 400 && res.status < 600) {
       const error = await res.json();
-      console.log(res.status, error);
-      throw { code: res.status, error };
+      console.log(res.status, error.detail);
+      throw { code: res.status, error: error.detail };
     }
   }
 }
