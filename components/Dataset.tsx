@@ -27,12 +27,12 @@ const ThingsStats = ({ things }: { things: IThingsStats }) => (
       <Typography level="body3">Entities:</Typography>
       <Typography fontWeight="lg">{things.total}</Typography>
     </div>
-    {things.countries.length > 0 ? (
+    {things.countries.length > 0 && (
       <div>
         <Typography level="body3">Countries:</Typography>
         <Typography fontWeight="lg">{things.countries.length}</Typography>
       </div>
-    ) : null}
+    )}
   </>
 );
 
@@ -51,7 +51,7 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
       <Typography level="h2" fontSize="xl" sx={{ mb: 0.5 }}>
         {dataset.title}
       </Typography>
-      {detail ? (
+      {detail && (
         <Button
           href={dataset.entities_url}
           component="a"
@@ -64,11 +64,11 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
         >
           Api
         </Button>
-      ) : null}
+      )}
       <Typography level="body1">{dataset.summary}</Typography>
       <Box sx={{ display: "flex", columnGap: "1rem" }}>
-        {dataset.things ? <ThingsStats things={dataset.things} /> : null}
-        {dataset.publisher ? (
+        {dataset.things && <ThingsStats things={dataset.things} />}
+        {dataset.publisher && (
           <div>
             <Typography level="body3">Publisher:</Typography>
             {dataset.publisher.url ? (
@@ -77,8 +77,8 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
               <Typography>{dataset.publisher.name}</Typography>
             )}
           </div>
-        ) : null}
-        {detail ? (
+        )}
+        {detail && (
           <Button
             href={`${basePath}/${dataset.name}`}
             component="a"
@@ -91,19 +91,19 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
           >
             Explore
           </Button>
-        ) : null}
+        )}
       </Box>
     </Card>
   );
 }
 
 const TRow = ({ label, value }: { label: string; value: any }) =>
-  !!value ? (
+  !!value && (
     <tr>
       <th style={{ backgroundColor: "inherit" }}>{label}</th>
       <td>{value}</td>
     </tr>
-  ) : null;
+  );
 
 type MetaComponentProps = {
   dataset: INKDataset;
@@ -113,7 +113,7 @@ type MetaComponentProps = {
 export function DatasetMeta({ dataset, full = false }: MetaComponentProps) {
   return (
     <Card variant="soft">
-      {full ? (
+      {full && (
         <>
           <code>{dataset.name}</code>
           <Typography color="primary" level="h2" fontSize="md" sx={{ mb: 0.5 }}>
@@ -123,7 +123,7 @@ export function DatasetMeta({ dataset, full = false }: MetaComponentProps) {
             {dataset.summary}
           </Typography>
         </>
-      ) : null}
+      )}
       <Table aria-label="dataset metadata">
         <tbody>
           <TRow
@@ -160,7 +160,7 @@ export function PublisherMeta({ publisher }: { publisher: IDatasetPublisher }) {
           </Typography>
           <Typography>{publisher.official ? "yes" : "no"}</Typography>
         </div>
-        {publisher.url ? (
+        {publisher.url && (
           <Button
             component="a"
             href={publisher.url}
@@ -173,7 +173,7 @@ export function PublisherMeta({ publisher }: { publisher: IDatasetPublisher }) {
           >
             Website
           </Button>
-        ) : null}
+        )}
       </Box>
     </Card>
   );

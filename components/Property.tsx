@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import Link from "next/link";
 
+import Typography from "@mui/joy/Typography";
+
 import model from "../data/defaultModel.json";
 import { getProxy } from "../src/util";
 import type { IEntityComponent, TProperty } from "../types";
@@ -31,9 +33,9 @@ const amountFormat = new Intl.NumberFormat(["us", "de"], {
 });
 
 type AmountProps = {
-  value?: string | number;
-  abbrev?: boolean;
-  currency?: string;
+  readonly value?: string | number;
+  readonly abbrev?: boolean;
+  readonly currency?: string;
 };
 
 export const renderAmount = ({
@@ -49,9 +51,9 @@ export const renderAmount = ({
 };
 
 type DateProps = {
-  value: string;
-  yearOnly?: Boolean;
-  format?: string;
+  readonly value: string;
+  readonly yearOnly?: Boolean;
+  readonly format?: string;
 };
 
 const renderDate = ({ value, yearOnly, format }: DateProps): string => {
@@ -62,7 +64,7 @@ const renderDate = ({ value, yearOnly, format }: DateProps): string => {
 };
 
 type Value = {
-  value: string;
+  readonly value: string;
 };
 
 const renderNumeric = ({ value }: Value): string => {
@@ -117,10 +119,10 @@ const renderProp = (prop: TProperty, value: string, ellipsis: number) => {
 };
 
 interface IPropComponent extends IEntityComponent {
-  prop: TProperty | string;
-  icon?: boolean;
-  iconOnly?: boolean;
-  ellipsis?: number;
+  readonly prop: TProperty | string;
+  readonly icon?: boolean;
+  readonly iconOnly?: boolean;
+  readonly ellipsis?: number;
 }
 
 export default function EntityProperty({
@@ -169,8 +171,18 @@ export function ExpandableEntityProperty({
 
   const shortElems = values.slice(0, 3);
   const moreCount = values.length - 3;
-  const moreText = <>{`und ${moreCount} mehr...`}</>;
-  const lessText = <>{`weniger`}</>;
+  const moreText = (
+    <Typography
+      component="span"
+      color="neutral"
+      sx={{ display: "inline " }}
+    >{`and ${moreCount} more…`}</Typography>
+  );
+  const lessText = (
+    <Typography component="span" color="neutral" sx={{ display: "inline " }}>
+      less
+    </Typography>
+  );
 
   if (values.length <= 3) {
     return (
