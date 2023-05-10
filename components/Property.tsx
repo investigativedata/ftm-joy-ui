@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Link from "next/link";
 
-import countries from "../data/countryNames.json";
+import model from "../data/defaultModel.json";
 import { getProxy } from "../src/util";
 import type { IEntityComponent, TProperty } from "../types";
 import { EntityLink } from "./Entity";
@@ -12,7 +12,8 @@ import CountryFlag from "./common/CountryFlag";
 
 export const SPACER = " · ";
 
-const countryNames: { [key: string]: string } = countries["en"];
+const countryNames: { [key: string]: string } =
+  model["types"]["country"]["values"];
 
 const ellipse = ({
   value,
