@@ -95,6 +95,6 @@ export const getPrimitiveValue = (
   if (!value) return "";
   const casted = castPropertyValue(prop, value);
   if (typeof casted == "string" || typeof casted == "number") return casted;
-  if (casted instanceof Date) return casted.toLocaleString();
+  if (casted instanceof Date) return casted.toISOString();
   return casted.getCaption();
 };
