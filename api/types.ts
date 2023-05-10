@@ -23,6 +23,7 @@ export interface IEntitiesResult {
   readonly url: string;
   readonly next_url: string | null;
   readonly prev_url: string | null;
+  readonly schemata: { [key: string]: number };
   readonly entities: IEntityDatum[];
 }
 
