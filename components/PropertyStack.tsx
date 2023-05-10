@@ -16,10 +16,10 @@ export default function PropertyStack({
   return (
     <Stack>
       {entityProps.map((prop) => (
-        <>
+        <section key={prop.qname}>
           <Typography level="h5">{prop.label}</Typography>
           <ExpandableEntityProperty entity={entity} prop={prop} icon={icon} />
-        </>
+        </section>
       ))}
     </Stack>
   );
