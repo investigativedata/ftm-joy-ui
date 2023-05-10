@@ -98,12 +98,12 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
 }
 
 const TRow = ({ label, value }: { label: string; value: any }) =>
-  !!value && (
+  !!value ? (
     <tr>
       <th style={{ backgroundColor: "inherit" }}>{label}</th>
       <td>{value}</td>
     </tr>
-  );
+  ) : null;
 
 type MetaComponentProps = {
   dataset: INKDataset;
