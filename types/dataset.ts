@@ -56,7 +56,7 @@ export interface INKDataset extends INKDatasetBase {
   readonly resources: Array<IResource>;
   readonly url?: string;
   readonly entities_url?: string;
-  readonly things?: IThingsStats;
+  readonly things: IThingsStats;
 }
 
 export interface INKCatalog {
