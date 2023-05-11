@@ -249,3 +249,48 @@ export function ExpandableEntityProperty({
     </span>
   );
 }
+
+export function EntityCountry({
+  entity,
+  ellipsis,
+  iconOnly,
+}: Omit<IPropComponent, "prop">) {
+  entity = getProxy(entity);
+  if (entity.hasProperty("country"))
+    return (
+      <EntityProperty
+        entity={entity}
+        prop="country"
+        ellipsis={ellipsis}
+        iconOnly={iconOnly}
+      />
+    );
+  if (entity.hasProperty("jurisdiction"))
+    return (
+      <EntityProperty
+        entity={entity}
+        prop="jurisdiction"
+        ellipsis={ellipsis}
+        iconOnly={iconOnly}
+      />
+    );
+  return null;
+}
+
+export function EntityDescription({
+  entity,
+  ellipsis,
+}: Omit<IPropComponent, "prop">) {
+  entity = getProxy(entity);
+  if (entity.hasProperty("description"))
+    return (
+      <EntityProperty entity={entity} prop="description" ellipsis={ellipsis} />
+    );
+  if (entity.hasProperty("summary"))
+    return (
+      <EntityProperty entity={entity} prop="summary" ellipsis={ellipsis} />
+    );
+  if (entity.hasProperty("notes"))
+    return <EntityProperty entity={entity} prop="notes" ellipsis={ellipsis} />;
+  return null;
+}

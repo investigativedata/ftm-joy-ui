@@ -12,12 +12,8 @@ import Stack from "@mui/joy/Stack";
 import Table from "@mui/joy/Table";
 import Typography from "@mui/joy/Typography";
 
-import { CountryFlag } from "~/lib/ftm/components";
-import type {
-  IDatasetPublisher,
-  INKDataset,
-  IThingsStats,
-} from "~/lib/ftm/types";
+import CountryFlag from "./common/CountryFlag";
+import type { IDatasetPublisher, INKDataset, IThingsStats } from "../types";
 
 import DateDisplay from "./common/Date";
 

@@ -1,6 +1,7 @@
 import Catalog from "./Catalog";
 import Dataset from "./Dataset";
 import EntitiesTable from "./EntitiesTable";
+import EntityCard from "./EntityCard"
 import EntityProperty from "./Property";
 import PropertyStack from "./PropertyStack";
 import PropertyTable from "./PropertyTable";
@@ -16,6 +17,7 @@ export {
   DateDisplay,
   Ellipsis,
   EntitiesTable,
+  EntityCard,
   EntityProperty,
   Link,
   PropertyStack,
