@@ -49,7 +49,7 @@ interface INKDatasetBase {
 }
 
 export interface INKDataset extends INKDatasetBase {
-  readonly updated_at: string;
+  readonly updated_at?: string;
   readonly version: string;
   readonly children: Array<string>;
   readonly publisher?: IDatasetPublisher;

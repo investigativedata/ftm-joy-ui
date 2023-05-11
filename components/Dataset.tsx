@@ -38,9 +38,11 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
   const basePath = usePathname();
   return (
     <Card variant="outlined" sx={{ width: "100%", marginBottom: "1rem" }}>
-      <Typography level="body2">
-        Last updated: <DateDisplay value={dataset.updated_at} full />
-      </Typography>
+      {dataset.updated_at && (
+        <Typography level="body2">
+          Last updated: <DateDisplay value={dataset.updated_at} full />
+        </Typography>
+      )}
       <Typography level="h2" fontSize="xl" sx={{ mb: 0.5 }}>
         {dataset.title}
       </Typography>
@@ -121,7 +123,11 @@ export function DatasetMeta({ dataset, full = false }: MetaComponentProps) {
         <tbody>
           <TRow
             label="Last updated"
-            value={<DateDisplay value={dataset.updated_at} full />}
+            value={
+              dataset.updated_at && (
+                <DateDisplay value={dataset.updated_at} full />
+              )
+            }
           />
           <TRow label="Frequency" value={dataset.frequency || "unknown"} />
           <TRow label="Category" value={dataset.category || "Other"} />
