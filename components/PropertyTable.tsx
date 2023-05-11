@@ -1,5 +1,6 @@
 import Table from "@mui/joy/Table";
 
+import { compareDisplayProps } from "../src/ordering";
 import { getProxy } from "../src/util";
 import type { Entity, IEntityComponent, TProperty } from "../types";
 import { ExpandableEntityProperty } from "./Property";
@@ -23,7 +24,7 @@ export const getProps = (
       }
     }
   }
-  return entityProps;
+  return entityProps.sort(compareDisplayProps);
 };
 
 export default function PropertyTable({
