@@ -23,7 +23,7 @@ type EntityRow = {
   readonly entity: Entity;
 };
 
-export type TColumn = GridColDef | TProperty | string;
+type TColumn = GridColDef | TProperty | string;
 
 interface ITableProps {
   readonly schema?: string | TSchema;

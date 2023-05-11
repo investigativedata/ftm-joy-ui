@@ -5,7 +5,7 @@ type DateProps = {
   isoFormat?: boolean;
 };
 
-export const renderDate = ({
+const renderDate = ({
   value,
   yearOnly,
   full,

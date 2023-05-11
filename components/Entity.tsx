@@ -82,7 +82,6 @@ export function EntityLink({
   entity,
   icon = false,
   iconOnly = false,
-  iconColor = undefined,
 }: CaptionProps) {
   const { urlPrefix, entityId } = useContext(Context);
   const isCurrent = entityId === entity.id;

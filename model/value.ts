@@ -1,11 +1,11 @@
 import type { Value } from "./entity";
 import type { Property } from "./property";
 
-export const castPropertyValue = (
+const castPropertyValue = (
   prop: Property,
   value: Value
 ): Value | Date | number => {
-  if (typeof value !== "string") return value;
+  if (typeof value !== "string") return value;  // Entity
   if (prop.type.name == "number") return parseFloat(value);
   if (prop.type.name == "date") {
     if (value.length == 4) return value.toString();
@@ -22,5 +22,6 @@ export const getPrimitiveValue = (
   const casted = castPropertyValue(prop, value);
   if (typeof casted == "string" || typeof casted == "number") return casted;
   if (casted instanceof Date) return casted.toISOString();
+  // we are an entity!
   return casted.getCaption();
 };

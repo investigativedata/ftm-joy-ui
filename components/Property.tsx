@@ -11,7 +11,7 @@ import { EntityLink } from "./Entity";
 import CountryFlag from "./common/CountryFlag";
 import Link from "./common/Link";
 
-export const SPACER = " · ";
+const SPACER = " · ";
 
 const countryNames: { [key: string]: string } =
   model["types"]["country"]["values"];
@@ -37,7 +37,7 @@ type AmountProps = {
   readonly currency?: string;
 };
 
-export const renderAmount = ({
+const renderAmount = ({
   value,
   abbrev,
   currency = "€",
