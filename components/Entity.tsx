@@ -9,6 +9,8 @@ import { getProxy } from "../src/util";
 import type { IEntityComponent } from "../types";
 import Link from "./common/Link";
 
+const ICON_SIZE = 16;
+
 interface CaptionProps extends IEntityComponent {
   readonly icon?: boolean;
   readonly iconColor?: string;
@@ -26,7 +28,7 @@ const Icon = styled("span")(({ theme, color }) => ({
 
 function EntitySchemaIcon({
   entity,
-  iconSize = 16,
+  iconSize = ICON_SIZE,
   iconColor = undefined,
 }: CaptionProps) {
   const proxy = getProxy(entity);
@@ -44,14 +46,18 @@ function EntitySchemaIcon({
 
 export function EntitySchema({
   entity,
-  iconSize = 16,
+  iconSize = ICON_SIZE,
   icon = true,
   iconColor = undefined,
 }: CaptionProps) {
   entity = getProxy(entity);
   return icon ? (
     <span>
-      <EntitySchemaIcon entity={entity} iconSize={iconSize} iconColor={iconColor} />{" "}
+      <EntitySchemaIcon
+        entity={entity}
+        iconSize={iconSize}
+        iconColor={iconColor}
+      />{" "}
       {entity.schema.label}
     </span>
   ) : (
