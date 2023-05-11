@@ -1,5 +1,5 @@
 import icons from "../data/icons.json";
-import { Schema } from "./schema";
+import type { Schema } from "./schema";
 
 interface IIconStorage {
   [iconName: string]: string[];

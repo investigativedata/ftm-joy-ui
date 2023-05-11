@@ -3,10 +3,10 @@ import { useContext } from "react";
 import { styled } from "@mui/joy/styles";
 
 import Context from "../context";
+import Icons from "../model/icons";
 import { getEntityUrl } from "../src/urls";
 import { getProxy } from "../src/util";
 import type { IEntityComponent } from "../types";
-import Icons from "../types/icons";
 import Link from "./common/Link";
 
 interface CaptionProps extends IEntityComponent {

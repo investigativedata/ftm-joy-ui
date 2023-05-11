@@ -1,5 +1,6 @@
-import { Model } from "./model";
-import { IPropertyDatum, Property } from "./property";
+import type { Model } from "./model";
+import type { IPropertyDatum, Property as TProperty } from "./property";
+import { Property } from "./property";
 
 interface IEdgeSpecification {
   source: string;
@@ -50,7 +51,7 @@ export class Schema {
   public readonly required: string[];
   public readonly edge?: IEdgeSpecification;
   public readonly isEdge: boolean;
-  private properties: Map<string, Property> = new Map();
+  private properties: Map<string, TProperty> = new Map();
 
   constructor(model: Model, schemaName: string, config: ISchemaDatum) {
     this.model = model;
@@ -105,8 +106,8 @@ export class Schema {
     return children;
   }
 
-  getProperties(qualified = false): Map<string, Property> {
-    const properties = new Map<string, Property>();
+  getProperties(qualified = false): Map<string, TProperty> {
+    const properties = new Map<string, TProperty>();
     this.getExtends().forEach((schema) => {
       schema.getProperties(qualified).forEach((prop, name) => {
         properties.set(name, prop);
@@ -118,13 +119,13 @@ export class Schema {
     return properties;
   }
 
-  getFeaturedProperties(): Array<Property> {
+  getFeaturedProperties(): Array<TProperty> {
     return this.featured
       .map((name) => this.getProperty(name))
       .filter(Property.isProperty);
   }
 
-  hasProperty(prop: string | Property): boolean {
+  hasProperty(prop: string | TProperty): boolean {
     if (Property.isProperty(prop)) {
       return this.getProperties(true).has(prop.qname);
     }
@@ -137,7 +138,7 @@ export class Schema {
    *
    * @param prop name or Property
    */
-  getProperty(prop: string | Property): Property | undefined {
+  getProperty(prop: string | TProperty): TProperty | undefined {
     if (Property.isProperty(prop)) {
       return prop;
     }

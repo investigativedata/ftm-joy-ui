@@ -6,7 +6,7 @@ import { ExpandableEntityProperty } from "./Property";
 
 export interface IPropertyTable extends IEntityComponent {
   props?: string[] | TProperty[];
-  icon?: boolean
+  icon?: boolean;
 }
 
 export const getProps = (
@@ -26,7 +26,11 @@ export const getProps = (
   return entityProps;
 };
 
-export default function PropertyTable({ entity, props, icon = true }: IPropertyTable) {
+export default function PropertyTable({
+  entity,
+  props,
+  icon = true,
+}: IPropertyTable) {
   entity = getProxy(entity);
   const entityProps = getProps(entity, props);
   return (
@@ -36,7 +40,11 @@ export default function PropertyTable({ entity, props, icon = true }: IPropertyT
           <tr key={prop.name}>
             <th>{prop.label}</th>
             <td>
-              <ExpandableEntityProperty entity={entity} prop={prop} icon={icon} />
+              <ExpandableEntityProperty
+                entity={entity}
+                prop={prop}
+                icon={icon}
+              />
             </td>
           </tr>
         ))}

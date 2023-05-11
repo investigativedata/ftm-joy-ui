@@ -1,5 +1,5 @@
-import type { Property as TProperty } from "./property";
-import type { Schema as TSchema } from "./schema";
+import type { Property as TProperty } from "../model/property";
+import type { Schema as TSchema } from "../model/schema";
 
 export type {
   INKDataset,

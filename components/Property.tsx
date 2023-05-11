@@ -2,8 +2,6 @@ import numeral from "numeral";
 
 import { useState } from "react";
 
-import Link from "next/link";
-
 import Typography from "@mui/joy/Typography";
 
 import model from "../data/defaultModel.json";
@@ -11,6 +9,7 @@ import { getProxy } from "../src/util";
 import type { IEntityComponent, TProperty } from "../types";
 import { EntityLink } from "./Entity";
 import CountryFlag from "./common/CountryFlag";
+import Link from "./common/Link";
 
 export const SPACER = " · ";
 

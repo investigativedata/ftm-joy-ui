@@ -1,5 +1,3 @@
-"use client";
-
 import { usePathname } from "next/navigation";
 
 import LaunchIcon from "@mui/icons-material/Launch";
@@ -12,9 +10,8 @@ import Stack from "@mui/joy/Stack";
 import Table from "@mui/joy/Table";
 import Typography from "@mui/joy/Typography";
 
-import CountryFlag from "./common/CountryFlag";
 import type { IDatasetPublisher, INKDataset, IThingsStats } from "../types";
-
+import CountryFlag from "./common/CountryFlag";
 import DateDisplay from "./common/Date";
 
 const ThingsStats = ({ things }: { things: IThingsStats }) => (

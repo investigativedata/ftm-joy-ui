@@ -1,6 +1,5 @@
-import type { Value } from "./entity";
 import type { Schema } from "./schema";
-import type { PropertyType } from "./propertyType";
+import type { PropertyType } from "./type";
 
 export interface IPropertyDatum {
   name: string;
@@ -74,27 +73,3 @@ export class Property {
     return this.qname;
   }
 }
-
-export const castPropertyValue = (
-  prop: Property,
-  value: Value
-): Value | Date | number => {
-  if (typeof value !== "string") return value;
-  if (prop.type.name == "number") return parseFloat(value);
-  if (prop.type.name == "date") {
-    if (value.length == 4) return value.toString();
-    return new Date(value);
-  }
-  return value;
-};
-
-export const getPrimitiveValue = (
-  prop: Property,
-  value: Value | null
-): number | string => {
-  if (!value) return "";
-  const casted = castPropertyValue(prop, value);
-  if (typeof casted == "string" || typeof casted == "number") return casted;
-  if (casted instanceof Date) return casted.toISOString();
-  return casted.getCaption();
-};

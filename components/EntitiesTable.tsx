@@ -4,9 +4,10 @@ import { styled } from "@mui/joy/styles";
 import type { GridColDef } from "@mui/x-data-grid";
 import { DataGrid, GridColumnHeaders, GridRow } from "@mui/x-data-grid";
 
+import { Property } from "../model/property";
+import { getPrimitiveValue } from "../model/value";
 import { getProxy, getSchema } from "../src/util";
 import type { Entity, TEntity, TProperty, TSchema } from "../types";
-import { Property, getPrimitiveValue } from "../types/property";
 import { EntityLink } from "./Entity";
 import EntityProperty from "./Property";
 

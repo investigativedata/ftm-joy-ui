@@ -1,10 +1,10 @@
-import type { IEntityDatum } from "./entity";
+import type { Entity as EntityType, IEntityDatum } from "./entity";
 import { Entity } from "./entity";
-import type { Property as TProperty } from "./property";
-import type { IPropertyTypeDatum } from "./propertyType";
-import { PropertyType } from "./propertyType";
-import type { ISchemaDatum } from "./schema";
+import { Property } from "./property";
+import type { ISchemaDatum, Schema as TSchema } from "./schema";
 import { Schema } from "./schema";
+import type { IPropertyTypeDatum, PropertyType as TPropertyType } from "./type";
+import { PropertyType } from "./type";
 
 interface IModelDatum {
   schemata: { [name: string]: ISchemaDatum };
@@ -12,8 +12,8 @@ interface IModelDatum {
 }
 
 export class Model {
-  public readonly schemata: { [x: string]: Schema | undefined } = {};
-  public readonly types: { [x: string]: PropertyType } = {};
+  public readonly schemata: { [x: string]: TSchema | undefined } = {};
+  public readonly types: { [x: string]: TPropertyType } = {};
 
   constructor(config: IModelDatum) {
     this.types = {};
@@ -27,7 +27,7 @@ export class Model {
     });
   }
 
-  getSchema(schemaName: string | null | undefined | Schema): Schema {
+  getSchema(schemaName: string | null | undefined | TSchema): TSchema {
     if (schemaName === null || schemaName === undefined) {
       throw new Error("Invalid schema.");
     }
@@ -44,7 +44,7 @@ export class Model {
   /**
    * Get a list of all schemata.
    */
-  getSchemata(): Schema[] {
+  getSchemata(): TSchema[] {
     return Object.keys(this.schemata)
       .map((name) => this.schemata[name])
       .filter(Schema.isSchema);
@@ -53,8 +53,8 @@ export class Model {
   /**
    * Get a list of all unique properties.
    */
-  getProperties(): TProperty[] {
-    const qnames = new Map<string, TProperty>();
+  getProperties(): Property[] {
+    const qnames = new Map<string, Property>();
     this.getSchemata().forEach((schema) => {
       schema.getProperties().forEach((prop) => {
         qnames.set(prop.qname, prop);
@@ -68,7 +68,7 @@ export class Model {
    *
    * @param type name of the type
    */
-  getType(type: string | PropertyType): PropertyType {
+  getType(type: string | TPropertyType): TPropertyType {
     if (type instanceof PropertyType) {
       return type;
     }
@@ -80,7 +80,7 @@ export class Model {
    *
    * @param raw entity source data
    */
-  getEntity(raw: IEntityDatum | Entity): Entity {
+  getEntity(raw: IEntityDatum | EntityType): EntityType {
     if (raw instanceof Entity) {
       return raw;
     } else {

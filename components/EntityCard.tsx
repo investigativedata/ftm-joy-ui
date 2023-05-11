@@ -1,11 +1,12 @@
-import { styled } from "@mui/joy/styles";
 import Card from "@mui/joy/Card";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
-import EntityProperty, { EntityCountry, EntityDescription } from "./Property";
-import { EntityLink } from "./Entity";
+import { styled } from "@mui/joy/styles";
+
+import { getProxy, getSchema } from "../src/util";
 import type { TEntity } from "../types";
-import { getSchema, getProxy } from "../src/util";
+import { EntityLink } from "./Entity";
+import EntityProperty, { EntityCountry, EntityDescription } from "./Property";
 
 const excludeProps = ["country", "name"];
 
@@ -28,7 +29,9 @@ function EntityCard({ entity: proxy }: { entity: TEntity }) {
             (p) =>
               entity.hasProperty(p) && (
                 <div key={p}>
-                  <Typography level="body3">{schema.getProperty(p)?.label}</Typography>
+                  <Typography level="body3">
+                    {schema.getProperty(p)?.label}
+                  </Typography>
                   <EntityProperty entity={entity} prop={p} />
                 </div>
               )
