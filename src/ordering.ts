@@ -1,4 +1,4 @@
-import { Property } from "./property";
+import type { Property } from "../model/property";
 
 interface WeightsType {
   [name: string]: number;
