@@ -1,15 +1,19 @@
 import type { IEntityDatum } from "../types";
 
-export interface IUrlQuery {
+export interface IPublicQuery {
   // visible api params in the browser
+  readonly q?: string;
   readonly page?: number;
-  limit?: number;
   readonly order_by?: string;
+  readonly schema?: string;
+  readonly country?: string;
+  limit?: number;
 }
 
-export interface IApiQuery extends IUrlQuery {
+export interface IApiQuery extends IPublicQuery {
   api_key?: string;
   readonly nested?: boolean;
+  readonly featured?: boolean;
   readonly dehydrate?: boolean;
   readonly dehydrate_nested?: boolean;
   readonly reverse?: string;
