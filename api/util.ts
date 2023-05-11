@@ -1,5 +1,3 @@
-import queryString from "query-string";
-
 import type { IApiQuery, IPublicQuery } from "./types";
 
 const DEFAULT_LIMIT = 10;
