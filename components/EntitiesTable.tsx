@@ -1,5 +1,9 @@
-import * as React from "react";
+import { memo, useContext, useMemo } from "react";
 
+import Link from "next/link";
+
+import InfoIcon from '@mui/icons-material/Info';
+import Button from "@mui/joy/Button";
 import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
 import {
   THEME_ID as MATERIAL_THEME_ID,
@@ -11,8 +15,10 @@ import type { GridColDef } from "@mui/x-data-grid";
 import { DataGrid, GridColumnHeaders, GridRow } from "@mui/x-data-grid";
 import { unstable_joySlots } from "@mui/x-data-grid/joy";
 
+import Context from "../context";
 import { Property } from "../model/property";
 import { getPrimitiveValue } from "../model/value";
+import { getEntityUrl } from "../src/urls";
 import { getProxy, getSchema } from "../src/util";
 import type { Entity, TEntity, TProperty, TSchema } from "../types";
 import { EntityLink } from "./Entity";
@@ -28,11 +34,31 @@ type TColumn = GridColDef | TProperty | string;
 interface ITableProps {
   readonly schema?: string | TSchema;
   readonly columns?: TColumn[];
+  readonly detailUrl?: boolean;
   readonly entities: TEntity[];
   [key: string]: any; // pass through component props
 }
 
 type TRow = { row: EntityRow };
+
+const getDetailLinkCol = (urlPrefix: string): GridColDef => ({
+  field: "url",
+  headerName: "",
+  width: 25,
+  renderCell: ({ row }: TRow) => (
+    <Link href={getEntityUrl(row.entity, urlPrefix)}>
+      <Button
+        aria-label="view details"
+        variant="plain"
+        size="sm"
+        sx={{ p: 0.5, m: 0 }}
+      >
+        <InfoIcon fontSize="small" />
+      </Button>
+    </Link>
+  ),
+  sortable: false,
+});
 
 const getPropColumnDef = (prop: TProperty, headerName?: string): GridColDef => {
   if (prop.name === "name")
@@ -82,7 +108,8 @@ const getColumnDef = (
 
 const getColumnDefs = (
   schema?: string | TSchema,
-  columns?: TColumn[]
+  columns?: TColumn[],
+  detailUrl?: string
 ): GridColDef[] => {
   let columnDefs: GridColDef[] = [];
   schema = getSchema(schema || "LegalEntity");
@@ -97,6 +124,9 @@ const getColumnDefs = (
       }
     }
   }
+  if (detailUrl) {
+    columnDefs.push(getDetailLinkCol(detailUrl));
+  }
   return columnDefs;
 };
 
@@ -106,6 +136,7 @@ export default function EntitiesTable({
   entities,
   schema,
   columns,
+  detailUrl = false,
   ...props
 }: ITableProps) {
   const rows: EntityRow[] = entities.map((e) => ({
@@ -113,13 +144,15 @@ export default function EntitiesTable({
     entity: getProxy(e),
   }));
 
-  const columnDefs = React.useMemo(
-    () => getColumnDefs(schema, columns),
+  const { urlPrefix } = useContext(Context);
+
+  const columnDefs = useMemo(
+    () => getColumnDefs(schema, columns, detailUrl ? urlPrefix : undefined),
     [schema, columns]
   );
 
-  const MemoizedRow = React.memo(GridRow);
-  const MemoizedColumnHeaders = React.memo(GridColumnHeaders);
+  const MemoizedRow = memo(GridRow);
+  const MemoizedColumnHeaders = memo(GridColumnHeaders);
 
   const initialState = {
     pagination: { paginationModel: { pageSize: 10 } },
