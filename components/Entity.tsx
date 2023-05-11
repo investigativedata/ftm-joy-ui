@@ -24,7 +24,7 @@ const Icon = styled("span")(({ theme, color }) => ({
   },
 }));
 
-export function SchemaIcon({
+function EntitySchemaIcon({
   entity,
   iconSize = 16,
   iconColor = undefined,
@@ -42,7 +42,7 @@ export function SchemaIcon({
   );
 }
 
-export function Schema({
+export function EntitySchema({
   entity,
   iconSize = 16,
   icon = true,
@@ -51,7 +51,7 @@ export function Schema({
   entity = getProxy(entity);
   return icon ? (
     <span>
-      <SchemaIcon entity={entity} iconSize={iconSize} iconColor={iconColor} />{" "}
+      <EntitySchemaIcon entity={entity} iconSize={iconSize} iconColor={iconColor} />{" "}
       {entity.schema.label}
     </span>
   ) : (
@@ -70,7 +70,7 @@ export function EntityCaption({
     <>
       {icon ? (
         <>
-          <SchemaIcon entity={entity} iconColor={iconColor} />{" "}
+          <EntitySchemaIcon entity={entity} iconColor={iconColor} />{" "}
         </>
       ) : null}
       {!iconOnly ? entity.caption : null}
