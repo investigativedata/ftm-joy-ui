@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import LaunchIcon from "@mui/icons-material/Launch";
@@ -5,7 +6,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
-import Link from "@mui/joy/Link";
 import Stack from "@mui/joy/Stack";
 import Table from "@mui/joy/Table";
 import Typography from "@mui/joy/Typography";
@@ -74,18 +74,18 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
           </div>
         )}
         {detail && (
-          <Button
-            href={`${basePath}/${dataset.name}`}
-            component="a"
-            startDecorator={<SearchIcon />}
-            variant="solid"
-            size="sm"
-            color="primary"
-            aria-label={`Explore ${dataset.title}`}
-            sx={{ ml: "auto", fontWeight: 600 }}
-          >
-            Explore
-          </Button>
+          <Link href={`${basePath}/${dataset.name}`}>
+            <Button
+              startDecorator={<SearchIcon />}
+              variant="solid"
+              size="sm"
+              color="primary"
+              aria-label={`Explore ${dataset.title}`}
+              sx={{ ml: "auto", fontWeight: 600 }}
+            >
+              Explore
+            </Button>
+          </Link>
         )}
       </Box>
     </Card>
