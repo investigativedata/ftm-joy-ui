@@ -3,6 +3,10 @@ import queryString from "query-string";
 import type { IEntityDatum, INKCatalog, INKDataset } from "../types";
 import type { IAggregationResult, IApiQuery, IEntitiesResult } from "./types";
 
+type ApiError = {
+  detail: string[];
+};
+
 export default class Api {
   private endpoint: string;
   private api_key?: string;
@@ -45,6 +49,18 @@ export default class Api {
     return await this.api(`${dataset}/aggregate`, query);
   }
 
+  onNotFound(error: ApiError): any {
+    const errorMsg = error.detail.join("; ");
+    console.log("404 NOT FOUND", errorMsg);
+    throw new Error(errorMsg);
+  }
+
+  onError(status: number, error: ApiError): any {
+    const errorMsg = error.detail.join("; ");
+    console.log(status, errorMsg);
+    throw new Error(errorMsg);
+  }
+
   async api(path: string, query: IApiQuery = {}): Promise<any> {
     query.api_key = this.api_key; // this var is only accessible on server
     const url = `${this.endpoint}/${path}?${queryString.stringify(query, {
@@ -58,8 +74,11 @@ export default class Api {
     }
     if (res.status >= 400 && res.status < 600) {
       const error = await res.json();
-      console.log(res.status, error.detail);
-      throw { code: res.status, error: error.detail };
+      if (res.status === 404) {
+        this.onNotFound(error);
+      } else {
+        this.onError(res.status, error);
+      }
     }
   }
 }
