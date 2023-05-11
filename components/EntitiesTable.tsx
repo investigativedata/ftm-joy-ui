@@ -1,8 +1,15 @@
 import * as React from "react";
 
-import { styled } from "@mui/joy/styles";
+import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
+import {
+  THEME_ID as MATERIAL_THEME_ID,
+  Experimental_CssVarsProvider as MaterialCssVarsProvider,
+  experimental_extendTheme as muiExtendTheme,
+} from "@mui/material/styles";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 import type { GridColDef } from "@mui/x-data-grid";
 import { DataGrid, GridColumnHeaders, GridRow } from "@mui/x-data-grid";
+import { unstable_joySlots } from "@mui/x-data-grid/joy";
 
 import { Property } from "../model/property";
 import { getPrimitiveValue } from "../model/value";
@@ -93,9 +100,7 @@ const getColumnDefs = (
   return columnDefs;
 };
 
-const StyledGrid = styled(DataGrid)(({ theme }) => ({
-  fontFamily: theme.fontFamily.body,
-}));
+const muiTheme = muiExtendTheme();
 
 export default function EntitiesTable({
   entities,
@@ -121,25 +126,31 @@ export default function EntitiesTable({
   };
 
   return (
-    <StyledGrid
-      slots={{
-        row: MemoizedRow,
-        columnHeaders: MemoizedColumnHeaders,
-      }}
-      rows={rows}
-      columns={columnDefs}
-      density="compact"
-      disableColumnMenu
-      disableColumnFilter
-      disableColumnSelector
-      disableRowSelectionOnClick
-      disableDensitySelector
-      pageSizeOptions={[10, 25, 50, 100]}
-      initialState={initialState}
-      hideFooter={
-        entities.length < initialState.pagination.paginationModel.pageSize + 1
-      }
-      {...props}
-    />
+    <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: muiTheme }}>
+      <JoyCssVarsProvider>
+        <DataGrid
+          slots={{
+            ...unstable_joySlots,
+            row: MemoizedRow,
+            columnHeaders: MemoizedColumnHeaders,
+          }}
+          rows={rows}
+          columns={columnDefs}
+          density="compact"
+          disableColumnMenu
+          disableColumnFilter
+          disableColumnSelector
+          disableRowSelectionOnClick
+          disableDensitySelector
+          pageSizeOptions={[10, 25, 50, 100]}
+          initialState={initialState}
+          hideFooter={
+            entities.length <
+            initialState.pagination.paginationModel.pageSize + 1
+          }
+          {...props}
+        />
+      </JoyCssVarsProvider>
+    </MaterialCssVarsProvider>
   );
 }
