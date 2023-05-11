@@ -2,7 +2,7 @@ import { memo, useContext, useMemo } from "react";
 
 import Link from "next/link";
 
-import InfoIcon from '@mui/icons-material/Info';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Button from "@mui/joy/Button";
 import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
 import {
@@ -53,7 +53,7 @@ const getDetailLinkCol = (urlPrefix: string): GridColDef => ({
         size="sm"
         sx={{ p: 0.5, m: 0 }}
       >
-        <InfoIcon fontSize="small" />
+        <InfoOutlinedIcon fontSize="small" />
       </Button>
     </Link>
   ),
