@@ -11,8 +11,11 @@ interface ISchemataStats {
   readonly plural: string;
 }
 
-export interface IThingsStats {
-  readonly total: number;
+export interface ICoverage {
+  readonly start: string;
+  readonly end: string;
+  readonly frequency: string;
+  readonly entities: number;
   readonly countries: ICountryStats[];
   readonly schemata: ISchemataStats[];
 }
@@ -56,7 +59,7 @@ export interface INKDataset extends INKDatasetBase {
   readonly resources: Array<IResource>;
   readonly url?: string;
   readonly entities_url?: string;
-  readonly things: IThingsStats;
+  readonly coverage?: ICoverage;
 }
 
 export interface INKCatalog {
