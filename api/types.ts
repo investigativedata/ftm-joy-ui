@@ -17,7 +17,7 @@ export interface IApiQuery extends IPublicQuery {
   readonly dehydrate?: boolean;
   readonly dehydrate_nested?: boolean;
   readonly reverse?: string;
-  readonly dataset?: string[];
+  readonly dataset?: string;
   readonly order_by?: string;
   readonly [key: string]: any; // actual filter props
 }

@@ -2,7 +2,7 @@ import type { IApiQuery, IPublicQuery } from "./types";
 
 const DEFAULT_LIMIT = 10;
 const PER_PAGE = [10, 25, 50, 100];
-const PUBLIC_PARAMS = ["q", "page", "limit", "order_by", "schema", "country"]; // allowed user facing url params
+const PUBLIC_PARAMS = ["q", "page", "limit", "order_by", "schema", "country", "dataset"]; // allowed user facing url params
 
 export const cleanQuery = (
   query: IApiQuery,
