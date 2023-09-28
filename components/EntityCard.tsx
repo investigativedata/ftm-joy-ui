@@ -31,7 +31,7 @@ function EntityCard({ entity: proxy }: { entity: TEntity }) {
       <Typography color="primary" level="h2" fontSize="md" sx={{ mb: 0.5 }}>
         <EntityLink entity={entity} />
       </Typography>
-      <Typography color="neutral" level="body2">
+      <Typography color="neutral" level="body-md">
         <EntityDescription entity={entity} ellipsis={100} />
       </Typography>
       <Stack direction="row" spacing={2}>
@@ -41,7 +41,7 @@ function EntityCard({ entity: proxy }: { entity: TEntity }) {
             (p) =>
               entity.hasProperty(p) && (
                 <div key={p}>
-                  <Typography level="body3">
+                  <Typography level="body-md">
                     {schema.getProperty(p)?.label}
                   </Typography>
                   <EntityProperty entity={entity} prop={p} icon />

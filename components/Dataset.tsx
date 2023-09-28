@@ -10,20 +10,20 @@ import Stack from "@mui/joy/Stack";
 import Table from "@mui/joy/Table";
 import Typography from "@mui/joy/Typography";
 
-import type { IDatasetPublisher, INKDataset, IThingsStats } from "../types";
+import type { IDatasetPublisher, INKDataset, ICoverage } from "../types";
 import CountryFlag from "./common/CountryFlag";
 import DateDisplay from "./common/Date";
 
-const ThingsStats = ({ things }: { things: IThingsStats }) => (
+const Coverage = ({ coverage }: { coverage: ICoverage }) => (
   <>
     <div>
-      <Typography level="body3">Entities:</Typography>
-      <Typography fontWeight="lg">{things.total}</Typography>
+      <Typography level="body-sm">Entities:</Typography>
+      <Typography fontWeight="lg">{coverage.entities}</Typography>
     </div>
-    {things.countries.length > 0 && (
+    {coverage.countries.length > 0 && (
       <div>
-        <Typography level="body3">Countries:</Typography>
-        <Typography fontWeight="lg">{things.countries.length}</Typography>
+        <Typography level="body-sm">Countries:</Typography>
+        <Typography fontWeight="lg">{coverage.countries.length}</Typography>
       </div>
     )}
   </>
@@ -39,7 +39,7 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
   return (
     <Card variant="outlined" sx={{ width: "100%", marginBottom: "1rem" }}>
       {dataset.updated_at && (
-        <Typography level="body2">
+        <Typography level="body-md">
           Last updated: <DateDisplay value={dataset.updated_at} full />
         </Typography>
       )}
@@ -60,12 +60,12 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
           Api
         </Button>
       )}
-      <Typography level="body1">{dataset.summary}</Typography>
+      <Typography level="body-lg">{dataset.summary}</Typography>
       <Box sx={{ display: "flex", columnGap: "1rem" }}>
-        {dataset.things && <ThingsStats things={dataset.things} />}
+        {dataset.coverage && <Coverage coverage={dataset.coverage} />}
         {dataset.publisher && (
           <div>
-            <Typography level="body3">Publisher:</Typography>
+            <Typography level="body-sm">Publisher:</Typography>
             {dataset.publisher.url ? (
               <Link href={dataset.publisher.url}>{dataset.publisher.name}</Link>
             ) : (
@@ -114,7 +114,7 @@ export function DatasetMeta({ dataset, full = false }: MetaComponentProps) {
           <Typography color="primary" level="h2" fontSize="md" sx={{ mb: 0.5 }}>
             {dataset.title}
           </Typography>
-          <Typography color="neutral" level="body2">
+          <Typography color="neutral" level="body-md">
             {dataset.summary}
           </Typography>
         </>
@@ -149,12 +149,12 @@ export function PublisherMeta({ publisher }: { publisher: IDatasetPublisher }) {
       <Typography color="primary" level="h2" fontSize="md" sx={{ mb: 0.5 }}>
         {publisher.name}
       </Typography>
-      <Typography color="neutral" level="body2">
+      <Typography color="neutral" level="body-md">
         {publisher.description}
       </Typography>
       <Box sx={{ display: "flex" }}>
         <div>
-          <Typography level="body3" fontWeight="lg">
+          <Typography level="body-sm" fontWeight="lg">
             Official
           </Typography>
           <Typography>{publisher.official ? "yes" : "no"}</Typography>
