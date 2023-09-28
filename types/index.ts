@@ -4,7 +4,7 @@ import type { Schema as TSchema } from "../model/schema";
 export type {
   INKDataset,
   INKCatalog,
-  IThingsStats,
+  ICoverage,
   IDatasetPublisher,
 } from "./dataset";
 

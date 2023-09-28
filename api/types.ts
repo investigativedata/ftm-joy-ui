@@ -1,4 +1,4 @@
-import type { IEntityDatum } from "../types";
+import type { IEntityDatum, ICoverage } from "../types";
 
 export interface IPublicQuery {
   // visible api params in the browser
@@ -17,7 +17,9 @@ export interface IApiQuery extends IPublicQuery {
   readonly dehydrate?: boolean;
   readonly dehydrate_nested?: boolean;
   readonly reverse?: string;
-  readonly [key: string]: any;
+  readonly dataset?: string[];
+  readonly order_by?: string;
+  readonly [key: string]: any; // actual filter props
 }
 
 export interface IEntitiesResult {
@@ -27,7 +29,7 @@ export interface IEntitiesResult {
   readonly url: string;
   readonly next_url: string | null;
   readonly prev_url: string | null;
-  readonly schemata: { [key: string]: number };
+  readonly coverage: ICoverage;
   readonly entities: IEntityDatum[];
 }
 

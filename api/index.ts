@@ -21,32 +21,22 @@ export default class Api {
   }
 
   async getDataset(dataset: string): Promise<INKDataset> {
-    return await this.api(dataset);
+    return await this.api(`catalog/${dataset}`);
   }
 
-  async getEntity(dataset: string, id: string): Promise<IEntityDatum> {
-    return await this.api(`${dataset}/entities/${id}`, { nested: true });
+  async getEntity(id: string): Promise<IEntityDatum> {
+    return await this.api(`entities/${id}`, { nested: true });
   }
 
-  async getEntities(
-    dataset: string,
-    query: IApiQuery = {}
-  ): Promise<IEntitiesResult> {
-    return await this.api(`${dataset}/entities`, query);
-  }
-
-  async searchEntities(
-    dataset: string,
-    query: IApiQuery = {}
-  ): Promise<IEntitiesResult> {
-    return await this.api(`${dataset}/search`, query);
+  async getEntities(query: IApiQuery = {}): Promise<IEntitiesResult> {
+    return await this.api(`entities`, query);
   }
 
   async getAggregations(
     dataset: string,
     query: IApiQuery = {}
   ): Promise<IAggregationResult> {
-    return await this.api(`${dataset}/aggregate`, query);
+    return await this.api("aggregate", query);
   }
 
   onNotFound(error: ApiError): any {
