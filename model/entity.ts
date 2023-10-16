@@ -15,11 +15,8 @@ export interface IEntityDatum {
   first_seen?: string;
   schema: Schema | string;
   properties?: EntityProperties;
-  context: Context;
   id: string;
 }
-
-type Context = { [key: string]: any };
 
 /**
  * An entity proxy which provides simplified access to the
@@ -34,7 +31,6 @@ export class Entity {
   public last_seen: string | undefined;
   public referents: Array<string>;
   public datasets: Array<string>;
-  public context: Context;
 
   constructor(model: Model, data: IEntityDatum) {
     this.schema = model.getSchema(data.schema);
@@ -44,7 +40,6 @@ export class Entity {
     this.last_seen = data.last_seen;
     this.referents = data.referents;
     this.datasets = data.datasets;
-    this.context = data.context;
 
     if (data.properties) {
       Object.entries(data.properties).forEach(([prop, values]) => {
@@ -196,7 +191,6 @@ export class Entity {
       properties: properties,
       datasets: this.datasets,
       referents: this.referents,
-      context: this.context,
     };
   }
 
