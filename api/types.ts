@@ -36,17 +36,35 @@ export interface IEntitiesResult {
 type Aggregation = {
   readonly min?: string | number;
   readonly max?: string | number;
-  readonly sum?: string | number;
-  readonly avg?: string | number;
+  readonly sum?: number;
+  readonly avg?: number;
+  readonly count?: number;
+};
+
+type AggregationGroupValues = {
+  readonly [key: string]: string | number;
+};
+
+type AggregationGrouper = {
+  readonly [key: string]: AggregationGroupValues;
+};
+
+type AggregationGroup = {
+  readonly min?: AggregationGrouper;
+  readonly max?: AggregationGrouper;
+  readonly sum?: AggregationGrouper;
+  readonly avg?: AggregationGrouper;
+  readonly count?: AggregationGrouper;
 };
 
 type Aggregations = {
-  readonly [key: string]: Aggregation;
+  readonly [key: string]: Aggregation | AggregationGroup | undefined;  // FIXME
 };
 
 export interface IAggregationResult {
   readonly total: number;
   readonly query: IApiQuery;
   readonly url: string;
+  readonly coverage: ICoverage;
   readonly aggregations: Aggregations;
 }
