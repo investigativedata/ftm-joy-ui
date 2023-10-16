@@ -32,10 +32,7 @@ export default class Api {
     return await this.api(`entities`, query);
   }
 
-  async getAggregations(
-    dataset: string,
-    query: IApiQuery = {}
-  ): Promise<IAggregationResult> {
+  async getAggregations(query: IApiQuery = {}): Promise<IAggregationResult> {
     return await this.api("aggregate", query);
   }
 
