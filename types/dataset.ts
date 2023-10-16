@@ -1,10 +1,10 @@
-interface ICountryStats {
+export interface ICountryStats {
   readonly code: string;
   readonly count: number;
   readonly label: string;
 }
 
-interface ISchemataStats {
+export interface ISchemataStats {
   readonly name: string;
   readonly count: number;
   readonly label: string;
