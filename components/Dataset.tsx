@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { getDatasetUrl } from "../src/urls";
 
 import LaunchIcon from "@mui/icons-material/Launch";
 import SearchIcon from "@mui/icons-material/Search";
@@ -35,7 +35,6 @@ type DatasetProps = {
 };
 
 export default function Dataset({ dataset, detail = false }: DatasetProps) {
-  const basePath = usePathname();
   return (
     <Card variant="outlined" sx={{ width: "100%", marginBottom: "1rem" }}>
       {dataset.updated_at && (
@@ -74,7 +73,7 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
           </div>
         )}
         {detail && (
-          <Link href={`${basePath}/${dataset.name}`}>
+          <Link href={getDatasetUrl(dataset)}>
             <Button
               startDecorator={<SearchIcon />}
               variant="solid"
@@ -198,5 +197,21 @@ export function DatasetHeader({ dataset }: DatasetProps) {
         Api
       </Button>
     </Stack>
+  );
+}
+
+export function DatasetLink({ dataset }: DatasetProps) {
+  return (
+    <Link href={getDatasetUrl(dataset)}>
+      <Button
+        size="sm"
+        color="neutral"
+        variant="outlined"
+        aria-label={`Explore ${dataset.title}`}
+        sx={{ ml: "auto", fontWeight: 600 }}
+      >
+        {dataset.title}
+      </Button>
+    </Link>
   );
 }
