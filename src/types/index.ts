@@ -12,4 +12,4 @@ export type { Entity, TEntity, IEntityDatum, IEntityComponent } from "./entity";
 
 export type { TProperty, TSchema };
 
-export type { IEntityUrlParams } from "../src/urls";
+export type { IEntityUrlParams } from "~/util/urls";

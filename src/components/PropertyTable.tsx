@@ -1,7 +1,6 @@
 import Table from "@mui/joy/Table";
 
-import { compareDisplayProps } from "../src/ordering";
-import { getProxy } from "../src/util";
+import { compareDisplayProps, getProxy } from "~/util";
 import type { Entity, IEntityComponent, TProperty } from "../types";
 import { ExpandableEntityProperty } from "./Property";
 

@@ -1,7 +1,7 @@
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 
-import { getProxy } from "../src/util";
+import { getProxy } from "~/util";
 import { ExpandableEntityProperty } from "./Property";
 import type { IPropertyTable } from "./PropertyTable";
 import { getProps } from "./PropertyTable";

@@ -33,10 +33,13 @@ interface IResource {
   readonly title: string;
 }
 
-export interface IDatasetPublisher {
+export interface IDatasetMaintainer {
   readonly name: string;
   readonly url?: string;
   readonly description?: string;
+}
+
+export interface IDatasetPublisher extends IDatasetMaintainer {
   readonly official: boolean;
   readonly country?: string;
   readonly country_label?: string;
@@ -56,6 +59,7 @@ export interface INKDataset extends INKDatasetBase {
   readonly version: string;
   readonly children: Array<string>;
   readonly publisher?: IDatasetPublisher;
+  readonly maintainer?: IDatasetMaintainer;
   readonly resources: Array<IResource>;
   readonly url?: string;
   readonly entities_url?: string;

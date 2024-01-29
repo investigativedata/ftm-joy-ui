@@ -1,8 +1,6 @@
 import { memo, useContext, useMemo } from "react";
 
-import Link from "next/link";
-
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Button from "@mui/joy/Button";
 import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
 import {
@@ -18,11 +16,11 @@ import { unstable_joySlots } from "@mui/x-data-grid/joy";
 import Context from "../context";
 import { Property } from "../model/property";
 import { getPrimitiveValue } from "../model/value";
-import { getEntityUrl } from "../src/urls";
-import { getProxy, getSchema } from "../src/util";
+import { getEntityUrl, getProxy, getSchema } from "~/util";
 import type { Entity, TEntity, TProperty, TSchema } from "../types";
 import { EntityLink } from "./Entity";
 import EntityProperty from "./Property";
+import Link from "./common/Link";
 
 type EntityRow = {
   readonly id: string;

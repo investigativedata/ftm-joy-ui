@@ -4,7 +4,7 @@ import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import { styled } from "@mui/joy/styles";
 
-import { getProxy, getSchema } from "../src/util";
+import { getProxy, getSchema } from "~/util";
 import type { TEntity } from "../types";
 import { EntityLink, EntitySchema } from "./Entity";
 import EntityProperty, { EntityCountry, EntityDescription } from "./Property";

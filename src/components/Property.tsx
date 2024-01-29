@@ -5,7 +5,7 @@ import { useState } from "react";
 import Typography from "@mui/joy/Typography";
 
 import model from "../data/defaultModel.json";
-import { getProxy } from "../src/util";
+import { getProxy } from "~/util";
 import type { IEntityComponent, TProperty } from "../types";
 import { EntityLink } from "./Entity";
 import CountryFlag from "./common/CountryFlag";

@@ -2,6 +2,10 @@ import defaultModel from "../data/defaultModel.json";
 import { Model } from "../model/model";
 import type { Entity, TEntity, TSchema, IEntityDatum } from "../types";
 
+export * from "./ordering";
+export * from "./reduce";
+export * from "./urls";
+
 const model = new Model(defaultModel);
 
 export function getProxy(raw: TEntity): Entity {

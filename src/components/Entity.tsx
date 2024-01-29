@@ -4,8 +4,7 @@ import { styled } from "@mui/joy/styles";
 
 import Context from "../context";
 import Icons from "../model/icons";
-import { getEntityUrl } from "../src/urls";
-import { getProxy } from "../src/util";
+import { getEntityUrl, getProxy } from "~/util";
 import type { IEntityComponent } from "../types";
 import Link from "./common/Link";
 

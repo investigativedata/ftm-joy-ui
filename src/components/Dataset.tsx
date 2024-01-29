@@ -1,6 +1,3 @@
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-
 import LaunchIcon from "@mui/icons-material/Launch";
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/joy/Box";
@@ -13,6 +10,7 @@ import Typography from "@mui/joy/Typography";
 import type { IDatasetPublisher, INKDataset, ICoverage } from "../types";
 import CountryFlag from "./common/CountryFlag";
 import DateDisplay from "./common/Date";
+import Link from "./common/Link";
 
 const Coverage = ({ coverage }: { coverage: ICoverage }) => (
   <>
@@ -35,7 +33,6 @@ type DatasetProps = {
 };
 
 export default function Dataset({ dataset, detail = false }: DatasetProps) {
-  const basePath = usePathname();
   return (
     <Card variant="outlined" sx={{ width: "100%", marginBottom: "1rem" }}>
       {dataset.updated_at && (
@@ -74,7 +71,7 @@ export default function Dataset({ dataset, detail = false }: DatasetProps) {
           </div>
         )}
         {detail && (
-          <Link href={`${basePath}/${dataset.name}`}>
+          <Link href={`${dataset.name}`}>
             <Button
               startDecorator={<SearchIcon />}
               variant="solid"
