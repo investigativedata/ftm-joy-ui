@@ -1,12 +1,15 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
+// const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.tsx",
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/index.html",
+    }),
+    new webpack.ProvidePlugin({
+      React: "react",
     }),
     // new CopyPlugin({
     //   patterns: [{ from: 'src/icons' }],
