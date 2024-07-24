@@ -1,3 +1,4 @@
+import { Values } from "~/model";
 import defaultModel from "../data/defaultModel.json";
 import { Model } from "../model/model";
 import type { Entity, TEntity, TSchema, IEntityDatum } from "../types";
@@ -34,4 +35,15 @@ export function createEntityDict(
     }
   }
   return data;
+}
+
+export function pickStringValues(values: Values): string[] {
+  return values.filter((v): v is string => typeof v === "string");
+}
+
+export function pickLongestString(values: Values): string {
+  return pickStringValues(values).reduce(
+    (res, value) => (value.length > res.length ? value : res),
+    ""
+  );
 }

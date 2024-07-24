@@ -5,11 +5,12 @@ import { useState } from "react";
 import Typography from "@mui/joy/Typography";
 
 import model from "../data/defaultModel.json";
-import { getProxy } from "../src/util";
+import { pickLongestString, getProxy } from "../src/util";
 import type { IEntityComponent, TProperty } from "../types";
 import { EntityLink } from "./Entity";
 import CountryFlag from "./common/CountryFlag";
 import Link from "./common/Link";
+import { Values } from "~/model";
 
 const SPACER = " · ";
 
@@ -99,7 +100,7 @@ const renderIdentifier = ({ value, name }: { value: string; name: string }) => {
   return value;
 };
 
-const renderProp = (prop: TProperty, value: string, ellipsis: number) => {
+const renderPropValue = (prop: TProperty, value: string, ellipsis: number) => {
   if (prop.type.name === "number") {
     if (prop.name === "amountEur")
       return renderAmount({ value, currency: "EUR" });
@@ -122,6 +123,7 @@ interface IPropComponent extends IEntityComponent {
   readonly icon?: boolean;
   readonly iconOnly?: boolean;
   readonly ellipsis?: number;
+  readonly pickLongest?: boolean;
 }
 
 export default function EntityProperty({
@@ -130,13 +132,17 @@ export default function EntityProperty({
   icon = false,
   iconOnly = false,
   ellipsis = 0,
+  pickLongest = false,
 }: IPropComponent) {
   entity = getProxy(entity);
   if (!entity.schema.hasProperty(prop)) return null;
   const schemaProp = entity.schema.getProperty(prop);
   if (!schemaProp) return null;
-  const values = entity.getProperty(schemaProp);
+  let values = entity.getProperty(schemaProp);
   if (!values.length) return null;
+  if (pickLongest) {
+    values = [pickLongestString(values)];
+  }
   return (
     <span>
       {values.map((v, i) => (
@@ -144,7 +150,7 @@ export default function EntityProperty({
           {typeof v !== "string" ? (
             <EntityLink entity={v} icon={icon} iconOnly={iconOnly} />
           ) : (
-            renderProp(schemaProp, v, ellipsis)
+            renderPropValue(schemaProp, v, ellipsis)
           )}
           {i < values.length - 1 && !iconOnly ? SPACER : null}
         </span>
@@ -191,7 +197,7 @@ export function ExpandableEntityProperty({
             {typeof v !== "string" ? (
               <EntityLink entity={v} icon={icon} iconOnly={iconOnly} />
             ) : (
-              renderProp(schemaProp, v, ellipsis)
+              renderPropValue(schemaProp, v, ellipsis)
             )}
             {i < values.length - 1 && !iconOnly ? SPACER : null}
           </span>
@@ -207,7 +213,7 @@ export function ExpandableEntityProperty({
             {typeof v !== "string" ? (
               <EntityLink entity={v} icon={icon} iconOnly={iconOnly} />
             ) : (
-              renderProp(schemaProp, v, ellipsis)
+              renderPropValue(schemaProp, v, ellipsis)
             )}
             {i < shortElems.length && !iconOnly ? SPACER : null}
           </span>
@@ -231,7 +237,7 @@ export function ExpandableEntityProperty({
           {typeof v !== "string" ? (
             <EntityLink entity={v} icon={icon} iconOnly={iconOnly} />
           ) : (
-            renderProp(schemaProp, v, ellipsis)
+            renderPropValue(schemaProp, v, ellipsis)
           )}
           {i < values.length && !iconOnly ? SPACER : null}
         </span>
