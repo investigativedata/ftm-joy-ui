@@ -84,13 +84,21 @@ export function EntityCaption({
   );
 }
 
+interface EntityLinkProps extends CaptionProps {
+  readonly urlPrefix?: string;
+}
+
 export function EntityLink({
   entity,
   icon = false,
   iconOnly = false,
-}: CaptionProps) {
-  const { urlPrefix, entityId } = useContext(Context);
-  const isCurrent = entityId === entity.id;
+  urlPrefix,
+}: EntityLinkProps) {
+  const ctx = useContext(Context);
+  const isCurrent = ctx.entityId === entity.id;
+  if (!urlPrefix) {
+    urlPrefix = ctx.urlPrefix;
+  }
   const caption = (
     <EntityCaption
       entity={entity}

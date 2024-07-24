@@ -2,7 +2,7 @@ import { memo, useContext, useMemo } from "react";
 
 import Link from "next/link";
 
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Button from "@mui/joy/Button";
 import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
 import {
@@ -148,7 +148,7 @@ export default function EntitiesTable({
 
   const columnDefs = useMemo(
     () => getColumnDefs(schema, columns, detailUrl ? urlPrefix : undefined),
-    [schema, columns]
+    [schema, columns, detailUrl, urlPrefix]
   );
 
   const MemoizedRow = memo(GridRow);
