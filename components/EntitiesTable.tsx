@@ -19,7 +19,7 @@ import Context from "../context";
 import { Property } from "../model/property";
 import { getPrimitiveValue } from "../model/value";
 import { getEntityUrl } from "../src/urls";
-import { getProxy, getSchema } from "../src/util";
+import { getProperty, getProxy, getSchema } from "../src/util";
 import type { Entity, TEntity, TProperty, TSchema } from "../types";
 import { EntityLink } from "./Entity";
 import EntityProperty from "./Property";
@@ -29,17 +29,16 @@ type EntityRow = {
   readonly entity: Entity;
 };
 
-type TColumn = GridColDef | TProperty | string;
+export type TColumn = GridColDef | TProperty | string;
+export type TRow = { row: EntityRow };
 
-interface ITableProps {
+export interface ITableProps {
   readonly schema?: string | TSchema;
   readonly columns?: TColumn[];
   readonly detailUrl?: boolean;
   readonly entities: TEntity[];
   [key: string]: any; // pass through component props
 }
-
-type TRow = { row: EntityRow };
 
 const getDetailLinkCol = (urlPrefix: string): GridColDef => ({
   field: "url",
@@ -75,20 +74,17 @@ const getPropColumnDef = (prop: TProperty, headerName?: string): GridColDef => {
     flex: 1,
     headerName: headerName || prop.label,
     renderCell: ({ row }: TRow) => (
-      <EntityProperty entity={row.entity} prop={prop} icon />
+      <EntityProperty entity={row.entity} prop={prop.name} icon />
     ),
     sortable: true,
     valueGetter: ({ row }: TRow) =>
-      getPrimitiveValue(prop, row.entity.getFirst(prop)),
+      getPrimitiveValue(prop, row.entity.getFirst(prop.name)),
   };
 };
 
-const getColumnDef = (
-  colDef: TColumn,
-  schema: TSchema
-): GridColDef | undefined => {
+const getColumnDef = (colDef: TColumn): GridColDef | undefined => {
   if (typeof colDef == "string") {
-    const prop = schema.getProperty(colDef);
+    const prop = getProperty(colDef);
     if (prop) {
       return getPropColumnDef(prop);
     }
@@ -97,9 +93,9 @@ const getColumnDef = (
       return getPropColumnDef(colDef);
     }
     if (colDef.field) {
-      const prop = schema.getProperty(colDef.field);
+      const prop = getProperty(colDef.field);
       if (prop) {
-        const baseColDef = getPropColumnDef(prop, colDef.field);
+        const baseColDef = getPropColumnDef(prop, colDef.headerName);
         return { ...baseColDef, ...colDef };
       }
     }
@@ -112,13 +108,13 @@ const getColumnDefs = (
   detailUrl?: string
 ): GridColDef[] => {
   let columnDefs: GridColDef[] = [];
-  schema = getSchema(schema || "LegalEntity");
   if (!columns?.length) {
+    schema = getSchema(schema || "LegalEntity");
     const props = schema.getFeaturedProperties();
     columnDefs = props.map((p) => getPropColumnDef(p));
   } else {
     for (const colDef of columns) {
-      const column = getColumnDef(colDef, schema);
+      const column = getColumnDef(colDef);
       if (!!column) {
         columnDefs.push(column);
       }

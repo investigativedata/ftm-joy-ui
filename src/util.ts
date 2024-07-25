@@ -1,7 +1,13 @@
 import { Values } from "~/model";
 import defaultModel from "../data/defaultModel.json";
 import { Model } from "../model/model";
-import type { Entity, TEntity, TSchema, IEntityDatum } from "../types";
+import type {
+  Entity,
+  TEntity,
+  TSchema,
+  IEntityDatum,
+  TProperty,
+} from "../types";
 
 const model = new Model(defaultModel);
 
@@ -13,6 +19,10 @@ export function getSchema(
   schemaName: string | null | undefined | TSchema
 ): TSchema {
   return model.getSchema(schemaName);
+}
+
+export function getProperty(name: string): TProperty | undefined {
+  return model.getProperty(name);
 }
 
 type EntityDict = {

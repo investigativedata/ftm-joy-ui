@@ -64,6 +64,13 @@ export class Model {
   }
 
   /**
+   * Get an arbitrary property
+   */
+  getProperty(name: string): Property | undefined {
+    return this.getProperties().filter((p) => p.name === name)[0];
+  }
+
+  /**
    * Get a particular property type.
    *
    * @param type name of the type
