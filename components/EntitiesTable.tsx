@@ -1,4 +1,4 @@
-import { memo, useContext, useMemo } from "react";
+import React, { memo, useContext, useMemo } from "react";
 
 import Link from "next/link";
 
@@ -154,6 +154,13 @@ export default function EntitiesTable({
     pagination: { paginationModel: { pageSize: 10 } },
   };
 
+  const getRowSpacing = React.useCallback(() => {
+    return {
+      top: 10,
+      bottom: 10,
+    };
+  }, []);
+
   return (
     <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: muiTheme }}>
       <JoyCssVarsProvider>
@@ -164,8 +171,11 @@ export default function EntitiesTable({
             columnHeaders: MemoizedColumnHeaders,
           }}
           rows={rows}
+          getRowHeight={() => "auto"}
+          getEstimatedRowHeight={() => 200}
+          getRowSpacing={getRowSpacing}
           columns={columnDefs}
-          density="compact"
+          // density="compact"
           disableColumnMenu
           disableColumnFilter
           disableColumnSelector
