@@ -1,12 +1,12 @@
-import { Values } from "~/model";
+import { Model } from "../model";
 import defaultModel from "../data/defaultModel.json";
-import { Model } from "../model/model";
 import type {
   Entity,
   TEntity,
   TSchema,
   IEntityDatum,
   TProperty,
+  Values,
 } from "../types";
 
 const model = new Model(defaultModel);

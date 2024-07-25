@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { TEntity } from "~/types";
+import { TEntity } from "../types";
 
 interface IContext {
   urlPrefix?: string;
