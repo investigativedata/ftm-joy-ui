@@ -36,6 +36,10 @@ export default class Api {
     return await this.api("aggregate", query);
   }
 
+  async search(q: string, query: IApiQuery = {}): Promise<IEntitiesResult> {
+    return await this.api("search", { ...query, q });
+  }
+
   onNotFound(error: ApiError): any {
     const errorMsg = error.detail.join("; ");
     console.log("404 NOT FOUND", errorMsg);

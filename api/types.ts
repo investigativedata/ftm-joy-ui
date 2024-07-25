@@ -58,7 +58,7 @@ type AggregationGroup = {
 };
 
 type Aggregations = {
-  readonly [key: string]: Aggregation | AggregationGroup | undefined;  // FIXME
+  readonly [key: string]: Aggregation | AggregationGroup | undefined; // FIXME
 };
 
 export interface IAggregationResult {
