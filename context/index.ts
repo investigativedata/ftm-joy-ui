@@ -3,7 +3,7 @@ import { TEntity } from "~/types";
 
 interface IContext {
   urlPrefix?: string;
-  getEntityUrl?: (e: TEntity, defaultPrefix?: string) => string;
+  getEntityUrl?: (e: TEntity, defaultPrefix?: string) => string | undefined;
   entityId?: string;
 }
 
