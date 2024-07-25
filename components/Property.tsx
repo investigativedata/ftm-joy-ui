@@ -7,12 +7,11 @@ import Typography from "@mui/joy/Typography";
 import model from "../data/defaultModel.json";
 import { pickLongestString, getProxy } from "../src/util";
 import type { IEntityComponent, TProperty } from "../types";
-import { EntityLink } from "./Entity";
+import { EntityCaption, EntityLink } from "./Entity";
 import CountryFlag from "./common/CountryFlag";
 import Link from "./common/Link";
-import { Values } from "~/model";
 
-const SPACER = " · ";
+export const SPACER = " · ";
 
 const countryNames: { [key: string]: string } =
   model["types"]["country"]["values"];
@@ -124,6 +123,7 @@ interface IPropComponent extends IEntityComponent {
   readonly iconOnly?: boolean;
   readonly ellipsis?: number;
   readonly pickLongest?: boolean;
+  readonly entityLink?: boolean;
 }
 
 export default function EntityProperty({
@@ -133,6 +133,7 @@ export default function EntityProperty({
   iconOnly = false,
   ellipsis = 0,
   pickLongest = false,
+  entityLink = true,
 }: IPropComponent) {
   entity = getProxy(entity);
   if (!entity.schema.hasProperty(prop)) return null;
@@ -148,7 +149,11 @@ export default function EntityProperty({
       {values.map((v, i) => (
         <span key={i}>
           {typeof v !== "string" ? (
-            <EntityLink entity={v} icon={icon} iconOnly={iconOnly} />
+            entityLink ? (
+              <EntityLink entity={v} icon={icon} iconOnly={iconOnly} />
+            ) : (
+              <EntityCaption entity={v} icon={icon} />
+            )
           ) : (
             renderPropValue(schemaProp, v, ellipsis)
           )}
