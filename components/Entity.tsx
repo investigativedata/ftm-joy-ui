@@ -107,6 +107,8 @@ export function EntityLink({
       iconColor={isCurrent ? "gray" : undefined}
     />
   );
-  if (isCurrent) return caption;
-  return <Link href={getEntityUrl(entity, urlPrefix)}>{caption}</Link>;
+  const getUrl = ctx.getEntityUrl || getEntityUrl;
+  const url = getUrl(entity, urlPrefix);
+  if (isCurrent || !url) return caption;
+  return <Link href={url}>{caption}</Link>;
 }

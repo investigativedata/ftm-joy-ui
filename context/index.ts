@@ -1,8 +1,9 @@
 import { createContext } from "react";
+import { TEntity } from "~/types";
 
 interface IContext {
   urlPrefix?: string;
-  dataset?: string;
+  getEntityUrl?: (e: TEntity, defaultPrefix?: string) => string;
   entityId?: string;
 }
 
