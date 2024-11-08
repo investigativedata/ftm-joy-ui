@@ -34,18 +34,14 @@ export default class Api {
 
   async getEntitiesAll(q: IApiQuery = {}): Promise<IEntityDatum[]> {
     // chain requests to paginate and get all results
-    let entities: IEntityDatum[] = [];
-    const res = await this.getEntities(q);
-    entities = [...entities, ...res.entities];
-    let { next_url, query } = res;
-    while (!!next_url) {
-      query = { ...query, page: query.page || 1 + 1 };
-      const res = await this.getEntities(query);
+    let { entities } = await this.getEntities(q);
+    for (let page = 2; true; page++) {
+      const res = await this.getEntities({ ...q, page });
       entities = [...entities, ...res.entities];
-      next_url = res.next_url;
-      query = res.query;
+      if (!res.next_url) {
+        return entities;
+      }
     }
-    return entities;
   }
 
   async getAggregations(query: IApiQuery = {}): Promise<IAggregationResult> {
